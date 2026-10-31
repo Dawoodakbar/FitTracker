@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+
+# Xcode: your personal settings (window layout, breakpoints, scheme order)
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
+# Build output
+DerivedData/
+build/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/configuration/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+
+# Fastlane (if you add it later)
+fastlane/report.xml
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+
+# Secrets: never commit these
+.env
+*.p12
+*.mobileprovision
+AuthKey_*.p8
