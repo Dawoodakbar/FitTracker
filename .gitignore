@@ -28,3 +28,8 @@ fastlane/test_output/
 *.p12
 *.mobileprovision
 AuthKey_*.p8
+
+# Local planning docs
+docs/FitTracker-Blueprint.html
+docs/ARCHITECTURE.md
+docs/ROADMAP.md
