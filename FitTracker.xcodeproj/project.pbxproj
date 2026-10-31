@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4F9F3092861600CDAFE1 /* Domain */; };
+		AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FA13092913700CDAFE1 /* DesignSystem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AFBD4F8E30927EB300CDAFE1 /* PBXContainerItemProxy */ = {
+		AFBD4FAB30961D0400CDAFE1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000000000000000 /* Project object */;
 			proxyType = 1;
@@ -22,8 +23,8 @@
 
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* FitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AFBD4F8A30927EB300CDAFE1 /* FitTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBD4F9C3092805B00CDAFE1 /* FitTrackerKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FitTrackerKit; sourceTree = "<group>"; };
+		AFBD4FA730961D0400CDAFE1 /* FitTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +33,7 @@
 			path = FitTracker;
 			sourceTree = "<group>";
 		};
-		AFBD4F8B30927EB300CDAFE1 /* FitTrackerTests */ = {
+		AFBD4FA830961D0400CDAFE1 /* FitTrackerTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = FitTrackerTests;
 			sourceTree = "<group>";
@@ -44,9 +45,10 @@
 			isa = PBXFrameworksBuildPhase;
 			files = (
 				AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */,
+				AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */,
 			);
 		};
-		AFBD4F8730927EB300CDAFE1 /* Frameworks */ = {
+		AFBD4FA430961D0400CDAFE1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
 			);
@@ -58,7 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000010 /* FitTracker */,
-				AFBD4F8B30927EB300CDAFE1 /* FitTrackerTests */,
+				AFBD4FA830961D0400CDAFE1 /* FitTrackerTests */,
 				AFBD4F9B3092805B00CDAFE1 /* Frameworks */,
 				000000000000000000000020 /* Products */,
 			);
@@ -68,7 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000120 /* FitTracker.app */,
-				AFBD4F8A30927EB300CDAFE1 /* FitTrackerTests.xctest */,
+				AFBD4FA730961D0400CDAFE1 /* FitTrackerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,30 +102,31 @@
 			name = FitTracker;
 			packageProductDependencies = (
 				AFBD4F9F3092861600CDAFE1 /* Domain */,
+				AFBD4FA13092913700CDAFE1 /* DesignSystem */,
 			);
 			productName = MyApp;
 			productReference = 000000000000000000000120 /* FitTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AFBD4F8930927EB300CDAFE1 /* FitTrackerTests */ = {
+		AFBD4FA630961D0400CDAFE1 /* FitTrackerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AFBD4F9230927EB300CDAFE1 /* Build configuration list for PBXNativeTarget "FitTrackerTests" */;
+			buildConfigurationList = AFBD4FAD30961D0400CDAFE1 /* Build configuration list for PBXNativeTarget "FitTrackerTests" */;
 			buildPhases = (
-				AFBD4F8630927EB300CDAFE1 /* Sources */,
-				AFBD4F8730927EB300CDAFE1 /* Frameworks */,
-				AFBD4F8830927EB300CDAFE1 /* Resources */,
+				AFBD4FA330961D0400CDAFE1 /* Sources */,
+				AFBD4FA430961D0400CDAFE1 /* Frameworks */,
+				AFBD4FA530961D0400CDAFE1 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AFBD4F8F30927EB300CDAFE1 /* PBXTargetDependency */,
+				AFBD4FAC30961D0400CDAFE1 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				AFBD4F8B30927EB300CDAFE1 /* FitTrackerTests */,
+				AFBD4FA830961D0400CDAFE1 /* FitTrackerTests */,
 			);
 			name = FitTrackerTests;
 			productName = FitTrackerTests;
-			productReference = AFBD4F8A30927EB300CDAFE1 /* FitTrackerTests.xctest */;
+			productReference = AFBD4FA730961D0400CDAFE1 /* FitTrackerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -139,7 +142,7 @@
 					000000000000000100000000 = {
 						CreatedOnToolsVersion = 26.3;
 					};
-					AFBD4F8930927EB300CDAFE1 = {
+					AFBD4FA630961D0400CDAFE1 = {
 						CreatedOnToolsVersion = 27.1;
 						TestTargetID = 000000000000000100000000;
 					};
@@ -160,7 +163,7 @@
 			projectRoot = "";
 			targets = (
 				000000000000000100000000 /* FitTracker */,
-				AFBD4F8930927EB300CDAFE1 /* FitTrackerTests */,
+				AFBD4FA630961D0400CDAFE1 /* FitTrackerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -171,7 +174,7 @@
 			files = (
 			);
 		};
-		AFBD4F8830927EB300CDAFE1 /* Resources */ = {
+		AFBD4FA530961D0400CDAFE1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -184,7 +187,7 @@
 			files = (
 			);
 		};
-		AFBD4F8630927EB300CDAFE1 /* Sources */ = {
+		AFBD4FA330961D0400CDAFE1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
 			);
@@ -192,10 +195,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		AFBD4F8F30927EB300CDAFE1 /* PBXTargetDependency */ = {
+		AFBD4FAC30961D0400CDAFE1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 000000000000000100000000 /* FitTracker */;
-			targetProxy = AFBD4F8E30927EB300CDAFE1 /* PBXContainerItemProxy */;
+			targetProxy = AFBD4FAB30961D0400CDAFE1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -408,7 +411,7 @@
 			};
 			name = Release;
 		};
-		AFBD4F9030927EB300CDAFE1 /* Debug configuration for PBXNativeTarget "FitTrackerTests" */ = {
+		AFBD4FAE30961D0400CDAFE1 /* Debug configuration for PBXNativeTarget "FitTrackerTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -419,19 +422,18 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.iOS.FitTrackerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = xros;
+				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 7;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FitTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FitTracker";
 			};
 			name = Debug;
 		};
-		AFBD4F9130927EB300CDAFE1 /* Release configuration for PBXNativeTarget "FitTrackerTests" */ = {
+		AFBD4FAF30961D0400CDAFE1 /* Release configuration for PBXNativeTarget "FitTrackerTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -442,14 +444,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.iOS.FitTrackerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = xros;
+				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 7;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FitTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FitTracker";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -474,11 +475,11 @@
 			);
 			defaultConfigurationName = Release;
 		};
-		AFBD4F9230927EB300CDAFE1 /* Build configuration list for PBXNativeTarget "FitTrackerTests" */ = {
+		AFBD4FAD30961D0400CDAFE1 /* Build configuration list for PBXNativeTarget "FitTrackerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AFBD4F9030927EB300CDAFE1 /* Debug configuration for PBXNativeTarget "FitTrackerTests" */,
-				AFBD4F9130927EB300CDAFE1 /* Release configuration for PBXNativeTarget "FitTrackerTests" */,
+				AFBD4FAE30961D0400CDAFE1 /* Debug configuration for PBXNativeTarget "FitTrackerTests" */,
+				AFBD4FAF30961D0400CDAFE1 /* Release configuration for PBXNativeTarget "FitTrackerTests" */,
 			);
 			defaultConfigurationName = Release;
 		};
@@ -488,6 +489,10 @@
 		AFBD4F9F3092861600CDAFE1 /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Domain;
+		};
+		AFBD4FA13092913700CDAFE1 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
