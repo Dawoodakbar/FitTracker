@@ -9,7 +9,9 @@ let swiftSettings: [SwiftSetting] = [
 let package = Package(
     name: "FitTrackerKit",
     platforms: [
-        .iOS(.v26)
+        .iOS(.v26),
+        // Lets `swift test` run the pure-Swift modules on the Mac without a simulator.
+        .macOS(.v26)
     ],
     products: [
         .library(name: "Domain", targets: ["Domain"]),
