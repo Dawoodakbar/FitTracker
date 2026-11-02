@@ -18,11 +18,16 @@ public struct HeartRateZoneCalculator: Equatable, Sendable {
         self.maxHeartRate = maxHeartRate
     }
 
-    /// Creates a calculator by estimating max heart rate with the `220 - age` formula.
-    /// - Throws: `HeartRateZoneError.invalidAge` if `age` is outside `1...120`.
-    public init(age: Int) throws(HeartRateZoneError) {
+    /// Creates a calculator by estimating max heart rate from `age` with `formula`.
+    /// - Parameter formula: The estimation strategy. Defaults to `.fox` (`220 - age`).
+    /// - Throws: `HeartRateZoneError.invalidAge` if `age` is outside `1...120`, or
+    ///   `HeartRateZoneError.invalidMaxHeartRate` if the formula returns a value `<= 0`.
+    public init(
+        age: Int,
+        formula: some MaxHeartRateFormula = .fox
+    ) throws(HeartRateZoneError) {
         guard Self.validAges.contains(age) else { throw .invalidAge }
-        try self.init(maxHeartRate: 220 - age)
+        try self.init(maxHeartRate: formula.maxHeartRate(forAge: age))
     }
 
     /// Returns the zone for `bpm`, or `nil` if it is below 50% of max (resting).
