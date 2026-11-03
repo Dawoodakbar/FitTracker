@@ -1,5 +1,6 @@
 import SwiftUI
 import Domain
+import DesignSystem
 
 /// A playground screen for the Domain module: pick an age, a formula and a BPM,
 /// and watch the same code the tests check turn them into a heart rate zone.
@@ -112,13 +113,19 @@ private struct ZoneCard: View {
     let zone: HeartRateZone?
     let percentOfMax: Int?
 
+    /// The zone colour, or gray when resting. `AnyShapeStyle` lets the two different
+    /// style types (`ZoneTint` and `HierarchicalShapeStyle`) share one property.
+    private var tint: AnyShapeStyle {
+        zone.map { AnyShapeStyle(.zone($0.tone)) } ?? AnyShapeStyle(.secondary)
+    }
+
     var body: some View {
         HStack(spacing: 16) {
             Text(zone.map { "\($0.number)" } ?? "–")
                 .font(.system(size: 44, weight: .bold, design: .rounded))
                 .frame(width: 72, height: 72)
-                .background(zone?.color.opacity(0.2) ?? Color.secondary.opacity(0.15), in: .rect(cornerRadius: 16))
-                .foregroundStyle(zone?.color ?? .secondary)
+                .background(tint.opacity(0.2), in: .rect(cornerRadius: 16))
+                .foregroundStyle(tint)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(zone?.name ?? "Resting")
@@ -143,7 +150,7 @@ private struct ZoneRow: View {
 
     var body: some View {
         HStack {
-            Circle().fill(zone.color).frame(width: 10, height: 10)
+            Circle().fill(.zone(zone.tone)).frame(width: 10, height: 10)
             Text("\(zone.number). \(zone.name)")
                 .fontWeight(isCurrent ? .bold : .regular)
             Spacer()
@@ -154,7 +161,8 @@ private struct ZoneRow: View {
     }
 }
 
-/// Display-only details. These belong in DesignSystem once that module has real code.
+/// Display-only details. Names stay in the app (they're product wording to localize);
+/// colours come from DesignSystem.
 private extension HeartRateZone {
     var name: String {
         switch self {
@@ -166,13 +174,15 @@ private extension HeartRateZone {
         }
     }
 
-    var color: Color {
+    /// An exhaustive switch instead of `ZoneTone(rawValue: number)`: no Optional to unwrap,
+    /// and adding a zone to Domain won't compile until it gets a tone here.
+    var tone: ZoneTone {
         switch self {
-        case .recovery: .gray
-        case .endurance: .blue
-        case .aerobic: .green
-        case .threshold: .orange
-        case .maximum: .red
+        case .recovery: .zone1
+        case .endurance: .zone2
+        case .aerobic: .zone3
+        case .threshold: .zone4
+        case .maximum: .zone5
         }
     }
 }

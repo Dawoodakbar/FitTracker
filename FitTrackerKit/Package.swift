@@ -24,6 +24,11 @@ let package = Package(
             name: "DomainTests",
             dependencies: ["Domain"],
             swiftSettings: swiftSettings
+        ),
+        .testTarget(
+            name: "DesignSystemTests",
+            dependencies: ["DesignSystem"],
+            swiftSettings: swiftSettings
         )
     ]
 )
