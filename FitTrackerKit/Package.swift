@@ -17,7 +17,8 @@ let package = Package(
     products: [
         .library(name: "Domain", targets: ["Domain"]),
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
-        .library(name: "HistoryFeature", targets: ["HistoryFeature"])
+        .library(name: "HistoryFeature", targets: ["HistoryFeature"]),
+        .library(name: "Repositories", targets: ["Repositories"])
     ],
     targets: [
         .target(name: "Domain", swiftSettings: swiftSettings),
@@ -26,6 +27,14 @@ let package = Package(
         .target(
             name: "HistoryFeature",
             dependencies: ["Domain", "DesignSystem"],
+            swiftSettings: swiftSettings
+        ),
+        // Infrastructure: the Core Data stack. Knows nothing about Domain.
+        .target(name: "Persistence", swiftSettings: swiftSettings),
+        // Implements Domain's repository protocols on top of infrastructure, mapping between them.
+        .target(
+            name: "Repositories",
+            dependencies: ["Domain", "Persistence"],
             swiftSettings: swiftSettings
         ),
         // Fakes shared by test targets. Not a product, so it never ships in the app.
@@ -43,6 +52,11 @@ let package = Package(
         .testTarget(
             name: "TestSupportTests",
             dependencies: ["TestSupport", "Domain"],
+            swiftSettings: swiftSettings
+        ),
+        .testTarget(
+            name: "RepositoriesTests",
+            dependencies: ["Repositories", "Domain", "TestSupport"],
             swiftSettings: swiftSettings
         ),
         .testTarget(
