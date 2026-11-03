@@ -64,4 +64,23 @@ struct ZoneToneTests {
             #expect(ZoneTint(tone).resolve(in: environment) == tone[keyPath: variant].color)
         }
     }
+
+    // MARK: - Content on a zone fill
+
+    @Test("Content on a zone fill reaches 3:1 in light and dark", arguments: ZoneTone.allCases)
+    func onZoneContrast(tone: ZoneTone) {
+        #expect(ZoneTint.onLight.contrastRatio(with: tone.light) >= Self.minimumContrast)
+        #expect(ZoneTint.onDark.contrastRatio(with: tone.dark) >= Self.minimumContrast)
+    }
+
+    @Test("The on-zone style picks the content colour for the colour scheme", arguments: [
+        (ColorScheme.light, ZoneTint.onLight),
+        (ColorScheme.dark, ZoneTint.onDark)
+    ])
+    func onZoneResolves(scheme: ColorScheme, expected: RGB) {
+        var environment = EnvironmentValues()
+        environment.colorScheme = scheme
+
+        #expect(ZoneTint.onZone(.zone3).resolve(in: environment) == expected.color)
+    }
 }

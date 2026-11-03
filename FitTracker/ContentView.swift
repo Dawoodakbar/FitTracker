@@ -113,19 +113,9 @@ private struct ZoneCard: View {
     let zone: HeartRateZone?
     let percentOfMax: Int?
 
-    /// The zone colour, or gray when resting. `AnyShapeStyle` lets the two different
-    /// style types (`ZoneTint` and `HierarchicalShapeStyle`) share one property.
-    private var tint: AnyShapeStyle {
-        zone.map { AnyShapeStyle(.zone($0.tone)) } ?? AnyShapeStyle(.secondary)
-    }
-
     var body: some View {
         HStack(spacing: 16) {
-            Text(zone.map { "\($0.number)" } ?? "–")
-                .font(.system(size: 44, weight: .bold, design: .rounded))
-                .frame(width: 72, height: 72)
-                .background(tint.opacity(0.2), in: .rect(cornerRadius: 16))
-                .foregroundStyle(tint)
+            ZoneBadge(tone: zone?.tone)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(zone?.name ?? "Resting")
@@ -140,6 +130,8 @@ private struct ZoneCard: View {
             }
         }
         .padding(.vertical, 4)
+        // VoiceOver reads the card as one element: "3, Aerobic, 78% of your max".
+        .accessibilityElement(children: .combine)
     }
 }
 
