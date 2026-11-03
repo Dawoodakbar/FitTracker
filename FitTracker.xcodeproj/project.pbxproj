@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF4DF5BD309A65B400CEB3F0 /* WorkoutFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AF4DF5BC309A65B400CEB3F0 /* WorkoutFeature */; };
+		AF4DF5BF309A65BC00CEB3F0 /* Sensors in Frameworks */ = {isa = PBXBuildFile; productRef = AF4DF5BE309A65BC00CEB3F0 /* Sensors */; };
 		AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4F9F3092861600CDAFE1 /* Domain */; };
 		AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FA13092913700CDAFE1 /* DesignSystem */; };
 		AFBD4FFD309A5B3100CDAFE1 /* HistoryFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FFC309A5B3100CDAFE1 /* HistoryFeature */; };
@@ -46,7 +48,9 @@
 		000000000000000130000000 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				AF4DF5BF309A65BC00CEB3F0 /* Sensors in Frameworks */,
 				AFBD4FFF309A5B3C00CDAFE1 /* Repositories in Frameworks */,
+				AF4DF5BD309A65B400CEB3F0 /* WorkoutFeature in Frameworks */,
 				AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */,
 				AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */,
 				AFBD4FFD309A5B3100CDAFE1 /* HistoryFeature in Frameworks */,
@@ -109,6 +113,8 @@
 				AFBD4FA13092913700CDAFE1 /* DesignSystem */,
 				AFBD4FFC309A5B3100CDAFE1 /* HistoryFeature */,
 				AFBD4FFE309A5B3C00CDAFE1 /* Repositories */,
+				AF4DF5BC309A65B400CEB3F0 /* WorkoutFeature */,
+				AF4DF5BE309A65BC00CEB3F0 /* Sensors */,
 			);
 			productName = MyApp;
 			productReference = 000000000000000000000120 /* FitTracker.app */;
@@ -492,6 +498,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AF4DF5BC309A65B400CEB3F0 /* WorkoutFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WorkoutFeature;
+		};
+		AF4DF5BE309A65BC00CEB3F0 /* Sensors */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Sensors;
+		};
 		AFBD4F9F3092861600CDAFE1 /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Domain;
