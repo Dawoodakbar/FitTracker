@@ -2,7 +2,9 @@ import Foundation
 import OSLog
 import Domain
 import Repositories
+import Sensors
 import HistoryFeature
+import WorkoutFeature
 
 /// The composition root: the only place in the app that creates concrete implementations
 /// and hands them to features. Features only ever see Domain protocols.
@@ -10,24 +12,36 @@ import HistoryFeature
 /// To swap an implementation (e.g. a network repository later), change it here and nowhere else.
 final class AppContainer {
     let workoutRepository: any WorkoutRepository
+    let heartRateSource: any HeartRateSource
     let zoneCalculator: HeartRateZoneCalculator
 
-    init(workoutRepository: any WorkoutRepository, zoneCalculator: HeartRateZoneCalculator) {
+    init(
+        workoutRepository: any WorkoutRepository,
+        heartRateSource: any HeartRateSource,
+        zoneCalculator: HeartRateZoneCalculator
+    ) {
         self.workoutRepository = workoutRepository
+        self.heartRateSource = heartRateSource
         self.zoneCalculator = zoneCalculator
     }
 
     // MARK: - Configurations
 
     /// The real app: workouts saved to disk with Core Data.
+    /// Heart rate is simulated until the Bluetooth step replaces it here.
     static func live() -> AppContainer {
-        AppContainer(workoutRepository: makeDiskRepository(), zoneCalculator: defaultZoneCalculator())
+        AppContainer(
+            workoutRepository: makeDiskRepository(),
+            heartRateSource: SimulatedHeartRateSource(),
+            zoneCalculator: defaultZoneCalculator()
+        )
     }
 
     /// Previews and tests: a real Core Data store that only lives in memory.
     static func inMemory() throws -> AppContainer {
         AppContainer(
             workoutRepository: try CoreDataWorkoutRepository.inMemory(),
+            heartRateSource: SimulatedHeartRateSource(),
             zoneCalculator: defaultZoneCalculator()
         )
     }
@@ -36,6 +50,10 @@ final class AppContainer {
 
     func makeHistoryViewModel() -> WorkoutHistoryViewModel {
         WorkoutHistoryViewModel(repository: workoutRepository, calculator: zoneCalculator)
+    }
+
+    func makeLiveWorkoutViewModel() -> LiveWorkoutViewModel {
+        LiveWorkoutViewModel(source: heartRateSource, repository: workoutRepository, calculator: zoneCalculator)
     }
 
     // MARK: - Private

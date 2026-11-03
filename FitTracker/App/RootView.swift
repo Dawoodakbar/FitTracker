@@ -1,29 +1,41 @@
 import SwiftUI
 import Domain
 import HistoryFeature
+import WorkoutFeature
 
 /// The app's top level: one tab per feature.
 ///
 /// On iOS 26 and later the system draws the tab bar in Liquid Glass automatically.
 struct RootView: View {
+    /// The tabs, as values, so the selected tab can be stored and reacted to.
+    enum AppTab: Hashable {
+        case workout, history, zones
+    }
+
     let container: AppContainer
 
-    // Created once, not in `body`, so switching tabs keeps the loaded list.
+    // Created once, not in `body`, so switching tabs keeps each screen's state.
     // No initial value: `@State` is a macro in SDK 27 and is assigned only in `init`.
     @State private var historyViewModel: WorkoutHistoryViewModel
+    @State private var liveWorkoutViewModel: LiveWorkoutViewModel
+    @State private var selectedTab: AppTab
 
     init(container: AppContainer) {
         self.container = container
         self.historyViewModel = container.makeHistoryViewModel()
+        self.liveWorkoutViewModel = container.makeLiveWorkoutViewModel()
+        self.selectedTab = .workout
     }
 
     var body: some View {
-        TabView {
-            Tab("Zones", systemImage: "heart.circle") {
-                ContentView()
+        TabView(selection: $selectedTab) {
+            Tab("Workout", systemImage: "figure.run", value: AppTab.workout) {
+                NavigationStack {
+                    LiveWorkoutView(viewModel: liveWorkoutViewModel)
+                }
             }
 
-            Tab("History", systemImage: "list.bullet.rectangle") {
+            Tab("History", systemImage: "list.bullet.rectangle", value: AppTab.history) {
                 NavigationStack {
                     WorkoutHistoryView(viewModel: historyViewModel)
                         #if DEBUG
@@ -37,12 +49,26 @@ struct RootView: View {
                         #endif
                 }
             }
+
+            Tab("Zones", systemImage: "heart.circle", value: AppTab.zones) {
+                ContentView()
+            }
+        }
+        // A workout recorded on the Workout tab should be in the list as soon as History opens.
+        .onChange(of: selectedTab) { _, newTab in
+            if newTab == .history {
+                Task { await historyViewModel.load() }
+            }
+        }
+        // Keep the screen on while recording, so the live heart rate stays visible.
+        .onChange(of: liveWorkoutViewModel.phase) { _, phase in
+            UIApplication.shared.isIdleTimerDisabled = phase == .recording
         }
     }
 
     #if DEBUG
     /// Saves a generated workout, then reloads History so it appears.
-    /// Debug builds only, until Live Workout records real ones.
+    /// Debug builds only.
     private func addSampleWorkout() async {
         do {
             try await container.workoutRepository.save(SampleWorkout.make(endingAt: .now))
