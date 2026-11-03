@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4F9F3092861600CDAFE1 /* Domain */; };
 		AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FA13092913700CDAFE1 /* DesignSystem */; };
+		AFBD4FFD309A5B3100CDAFE1 /* HistoryFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FFC309A5B3100CDAFE1 /* HistoryFeature */; };
+		AFBD4FFF309A5B3C00CDAFE1 /* Repositories in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FFE309A5B3C00CDAFE1 /* Repositories */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +46,10 @@
 		000000000000000130000000 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				AFBD4FFF309A5B3C00CDAFE1 /* Repositories in Frameworks */,
 				AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */,
 				AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */,
+				AFBD4FFD309A5B3100CDAFE1 /* HistoryFeature in Frameworks */,
 			);
 		};
 		AFBD4FA430961D0400CDAFE1 /* Frameworks */ = {
@@ -103,6 +107,8 @@
 			packageProductDependencies = (
 				AFBD4F9F3092861600CDAFE1 /* Domain */,
 				AFBD4FA13092913700CDAFE1 /* DesignSystem */,
+				AFBD4FFC309A5B3100CDAFE1 /* HistoryFeature */,
+				AFBD4FFE309A5B3C00CDAFE1 /* Repositories */,
 			);
 			productName = MyApp;
 			productReference = 000000000000000000000120 /* FitTracker.app */;
@@ -493,6 +499,14 @@
 		AFBD4FA13092913700CDAFE1 /* DesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignSystem;
+		};
+		AFBD4FFC309A5B3100CDAFE1 /* HistoryFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HistoryFeature;
+		};
+		AFBD4FFE309A5B3C00CDAFE1 /* Repositories */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Repositories;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
