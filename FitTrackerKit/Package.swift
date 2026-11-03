@@ -18,15 +18,28 @@ let package = Package(
         .library(name: "Domain", targets: ["Domain"]),
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
         .library(name: "HistoryFeature", targets: ["HistoryFeature"]),
-        .library(name: "Repositories", targets: ["Repositories"])
+        .library(name: "WorkoutFeature", targets: ["WorkoutFeature"]),
+        .library(name: "Repositories", targets: ["Repositories"]),
+        .library(name: "Sensors", targets: ["Sensors"])
     ],
     targets: [
         .target(name: "Domain", swiftSettings: swiftSettings),
         .target(name: "DesignSystem", swiftSettings: swiftSettings),
-        // Features see Domain protocols and DesignSystem, never storage or networking.
+        // How Domain concepts look on screen (zone colours and names), shared by features.
+        .target(
+            name: "ZonePresentation",
+            dependencies: ["Domain", "DesignSystem"],
+            swiftSettings: swiftSettings
+        ),
+        // Features see Domain protocols and DesignSystem, never storage, sensors or networking.
         .target(
             name: "HistoryFeature",
-            dependencies: ["Domain", "DesignSystem"],
+            dependencies: ["Domain", "DesignSystem", "ZonePresentation"],
+            swiftSettings: swiftSettings
+        ),
+        .target(
+            name: "WorkoutFeature",
+            dependencies: ["Domain", "DesignSystem", "ZonePresentation"],
             swiftSettings: swiftSettings
         ),
         // Infrastructure: the Core Data stack. Knows nothing about Domain.
@@ -37,6 +50,8 @@ let package = Package(
             dependencies: ["Domain", "Persistence"],
             swiftSettings: swiftSettings
         ),
+        // Implements Domain's `HeartRateSource`: simulated now, Bluetooth later.
+        .target(name: "Sensors", dependencies: ["Domain"], swiftSettings: swiftSettings),
         // Fakes shared by test targets. Not a product, so it never ships in the app.
         .target(name: "TestSupport", dependencies: ["Domain"], swiftSettings: swiftSettings),
         .testTarget(
@@ -60,8 +75,18 @@ let package = Package(
             swiftSettings: swiftSettings
         ),
         .testTarget(
+            name: "SensorsTests",
+            dependencies: ["Sensors", "Domain"],
+            swiftSettings: swiftSettings
+        ),
+        .testTarget(
             name: "HistoryFeatureTests",
             dependencies: ["HistoryFeature", "Domain", "TestSupport"],
+            swiftSettings: swiftSettings
+        ),
+        .testTarget(
+            name: "WorkoutFeatureTests",
+            dependencies: ["WorkoutFeature", "Domain", "TestSupport"],
             swiftSettings: swiftSettings
         )
     ]

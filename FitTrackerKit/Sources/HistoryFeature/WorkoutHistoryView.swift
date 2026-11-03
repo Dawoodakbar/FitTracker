@@ -1,6 +1,7 @@
 import SwiftUI
 import Domain
 import DesignSystem
+import ZonePresentation
 
 /// The list of past workouts, newest first, with swipe-to-delete.
 ///
@@ -95,20 +96,6 @@ struct WorkoutHistoryRowView: View {
         .padding(.vertical, Spacing.xs)
         // VoiceOver reads the row as one element instead of four.
         .accessibilityElement(children: .combine)
-    }
-}
-
-extension HeartRateZone {
-    /// The DesignSystem colour for this zone. An exhaustive switch, so a new Domain zone
-    /// won't compile until it gets a tone.
-    var tone: ZoneTone {
-        switch self {
-        case .recovery: .zone1
-        case .endurance: .zone2
-        case .aerobic: .zone3
-        case .threshold: .zone4
-        case .maximum: .zone5
-        }
     }
 }
 
