@@ -95,6 +95,40 @@ struct WorkoutSummaryTests {
         #expect(summary.timeInZone == [.aerobic: .seconds(140), .endurance: .seconds(60)])
     }
 
+    // MARK: - Main zone
+
+    @Test("Main zone is nil when no time was spent in any zone")
+    func mainZoneNilWhenNoZoneTime() throws {
+        let summary = WorkoutSummary(
+            workout: try workout(lasting: 300, samples: [(90, 0)]),   // resting the whole time
+            calculator: calculator
+        )
+
+        #expect(summary.mainZone == nil)
+    }
+
+    @Test("Main zone is the zone with the most time")
+    func mainZoneIsMostTime() throws {
+        let summary = WorkoutSummary(
+            workout: try workout(lasting: 300, samples: [(150, 0), (170, 60), (90, 180)]),
+            calculator: calculator
+        )
+
+        // aerobic 60s, threshold 120s
+        #expect(summary.mainZone == .threshold)
+    }
+
+    @Test("On a tie, the harder zone wins")
+    func mainZoneTieGoesToHarderZone() throws {
+        let summary = WorkoutSummary(
+            workout: try workout(lasting: 120, samples: [(150, 0), (170, 60)]),
+            calculator: calculator
+        )
+
+        // aerobic 60s, threshold 60s
+        #expect(summary.mainZone == .threshold)
+    }
+
     @Test("Time before the first sample is not counted")
     func ignoresTimeBeforeFirstSample() throws {
         let summary = WorkoutSummary(

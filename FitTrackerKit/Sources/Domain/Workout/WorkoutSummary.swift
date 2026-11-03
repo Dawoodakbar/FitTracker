@@ -8,6 +8,13 @@ public struct WorkoutSummary: Equatable, Sendable {
     /// Time spent in each zone. Zones the user never reached have no entry.
     public let timeInZone: [HeartRateZone: Duration]
 
+    /// The zone with the most time, or `nil` if no time was spent in any zone.
+    /// On a tie the harder zone wins, since it says more about the workout's effort.
+    public var mainZone: HeartRateZone? {
+        // Tuples compare element by element: time first, then zone as the tie-break.
+        timeInZone.max { ($0.value, $0.key) < ($1.value, $1.key) }?.key
+    }
+
     public init(workout: Workout, calculator: HeartRateZoneCalculator) {
         let samples = workout.samples
         let bpms = samples.map(\.bpm)
