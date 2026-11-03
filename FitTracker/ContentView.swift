@@ -68,7 +68,7 @@ struct ContentView: View {
 
                 Section("All zones for max \(calculator?.maxHeartRate ?? 0)") {
                     ForEach(HeartRateZone.allCases, id: \.self) { zone in
-                        ZoneRow(zone: zone, maxHeartRate: calculator?.maxHeartRate ?? 0, isCurrent: zone == self.zone)
+                        ZoneRow(zone: zone, lowestBPM: calculator?.lowestBPM(in: zone), isCurrent: zone == self.zone)
                     }
                 }
             }
@@ -138,7 +138,7 @@ private struct ZoneCard: View {
 
 private struct ZoneRow: View {
     let zone: HeartRateZone
-    let maxHeartRate: Int
+    let lowestBPM: Int?
     let isCurrent: Bool
 
     var body: some View {
@@ -147,7 +147,7 @@ private struct ZoneRow: View {
             Text("\(zone.number). \(zone.name)")
                 .fontWeight(isCurrent ? .bold : .regular)
             Spacer()
-            Text("from \(zone.startPercent * maxHeartRate / 100) BPM")
+            Text(lowestBPM.map { "from \($0) BPM" } ?? "—")
                 .monospacedDigit()
                 .foregroundStyle(.secondary)
         }
@@ -175,9 +175,6 @@ private extension HeartRateZone {
         case .maximum: .red
         }
     }
-
-    /// Mirrors Domain's internal `lowerBoundPercent`, which the app can't see.
-    var startPercent: Int { 40 + number * 10 }
 }
 
 // MARK: - Previews
@@ -211,6 +208,11 @@ private extension HeartRateZone {
 #Preview("Tanaka, age 25 → max 191") {
     // MaxHeartRateFormulaTests.calculatorUsesGivenFormula: 190.5 rounds up to 191
     ContentView(age: 25, formula: .tanaka, bpm: 150)
+}
+
+#Preview("Age 25 → zone 1 starts at 98, not 97") {
+    // HeartRateZoneTests.lowestBPMRoundsUp: 50% of 195 = 97.5, rounded up
+    ContentView(age: 25, bpm: 98)
 }
 
 #Preview("Fox and Tanaka agree at 40 → max 180") {

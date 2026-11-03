@@ -30,6 +30,15 @@ public struct HeartRateZoneCalculator: Equatable, Sendable {
         try self.init(maxHeartRate: formula.maxHeartRate(forAge: age))
     }
 
+    /// The lowest whole BPM that `zone(for:)` places in `zone`.
+    ///
+    /// Use this to show zone ranges, so the UI never re-implements the boundary math.
+    public func lowestBPM(in zone: HeartRateZone) -> Int {
+        // Ceiling division: the boundary `percent × max / 100` is often fractional (97.5),
+        // and the first BPM that satisfies `bpm * 100 >= percent * max` is the next whole one.
+        (zone.lowerBoundPercent * maxHeartRate + 99) / 100
+    }
+
     /// Returns the zone for `bpm`, or `nil` if it is below 50% of max (resting).
     public func zone(for bpm: Int) -> HeartRateZone? {
         // Compare `bpm * 100 >= percent * max` instead of dividing, so the math stays in

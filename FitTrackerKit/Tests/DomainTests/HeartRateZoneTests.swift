@@ -73,6 +73,43 @@ struct HeartRateZoneTests {
         #expect(calculator.zone(for: bpm) == nil)
     }
 
+    // MARK: - Lowest BPM in a zone
+
+    @Test("Lowest BPM in each zone for max 200", arguments: [
+        (HeartRateZone.recovery, 100),
+        (HeartRateZone.endurance, 120),
+        (HeartRateZone.aerobic, 140),
+        (HeartRateZone.threshold, 160),
+        (HeartRateZone.maximum, 180)
+    ])
+    func lowestBPMForMax200(zone: HeartRateZone, expected: Int) throws {
+        let calculator = try HeartRateZoneCalculator(maxHeartRate: 200)
+
+        #expect(calculator.lowestBPM(in: zone) == expected)
+    }
+
+    @Test("Rounds up when the boundary is not a whole BPM")
+    func lowestBPMRoundsUp() throws {
+        // 50% of 195 = 97.5. 97 BPM is still resting, so the zone really starts at 98.
+        let calculator = try HeartRateZoneCalculator(maxHeartRate: 195)
+
+        #expect(calculator.lowestBPM(in: .recovery) == 98)
+    }
+
+    @Test(
+        "Lowest BPM is in the zone and one below is not",
+        arguments: [150, 190, 195, 199],
+        HeartRateZone.allCases
+    )
+    func lowestBPMMatchesZoneForBPM(maxHeartRate: Int, zone: HeartRateZone) throws {
+        // Ties `lowestBPM(in:)` to `zone(for:)`, so the two can never disagree.
+        let calculator = try HeartRateZoneCalculator(maxHeartRate: maxHeartRate)
+        let lowest = calculator.lowestBPM(in: zone)
+
+        #expect(calculator.zone(for: lowest) == zone)
+        #expect(calculator.zone(for: lowest - 1) != zone)
+    }
+
     // MARK: - Zone metadata
 
     @Test("Zones are numbered 1 to 5 in order")
