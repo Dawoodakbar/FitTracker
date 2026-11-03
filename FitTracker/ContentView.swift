@@ -69,7 +69,12 @@ struct ContentView: View {
 
                 Section("All zones for max \(calculator?.maxHeartRate ?? 0)") {
                     ForEach(HeartRateZone.allCases, id: \.self) { zone in
-                        ZoneRow(zone: zone, lowestBPM: calculator?.lowestBPM(in: zone), isCurrent: zone == self.zone)
+                        ZoneRow(
+                            tone: zone.tone,
+                            title: "\(zone.number). \(zone.name)",
+                            detail: calculator.map { "from \($0.lowestBPM(in: zone)) BPM" } ?? "—",
+                            isCurrent: zone == self.zone
+                        )
                     }
                 }
             }
@@ -114,10 +119,10 @@ private struct ZoneCard: View {
     let percentOfMax: Int?
 
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: Spacing.m) {
             ZoneBadge(tone: zone?.tone)
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 Text(zone?.name ?? "Resting")
                     .font(.title2.bold())
                 Text(percentOfMax.map { "\($0)% of your max" } ?? "")
@@ -129,27 +134,9 @@ private struct ZoneCard: View {
                 }
             }
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, Spacing.xs)
         // VoiceOver reads the card as one element: "3, Aerobic, 78% of your max".
         .accessibilityElement(children: .combine)
-    }
-}
-
-private struct ZoneRow: View {
-    let zone: HeartRateZone
-    let lowestBPM: Int?
-    let isCurrent: Bool
-
-    var body: some View {
-        HStack {
-            Circle().fill(.zone(zone.tone)).frame(width: 10, height: 10)
-            Text("\(zone.number). \(zone.name)")
-                .fontWeight(isCurrent ? .bold : .regular)
-            Spacer()
-            Text(lowestBPM.map { "from \($0) BPM" } ?? "—")
-                .monospacedDigit()
-                .foregroundStyle(.secondary)
-        }
     }
 }
 
