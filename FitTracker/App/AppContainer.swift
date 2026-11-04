@@ -28,11 +28,17 @@ final class AppContainer {
     // MARK: - Configurations
 
     /// The real app: workouts saved to disk with Core Data.
-    /// Heart rate is simulated until the Bluetooth step replaces it here.
+    /// Heart rate comes from a Bluetooth monitor on a real device. The simulator has no
+    /// Bluetooth, so it uses the simulated source.
     static func live() -> AppContainer {
-        AppContainer(
+        #if targetEnvironment(simulator)
+        let source: any HeartRateSource = SimulatedHeartRateSource()
+        #else
+        let source: any HeartRateSource = BluetoothHeartRateSource()
+        #endif
+        return AppContainer(
             workoutRepository: makeDiskRepository(),
-            heartRateSource: SimulatedHeartRateSource(),
+            heartRateSource: source,
             zoneCalculator: defaultZoneCalculator()
         )
     }

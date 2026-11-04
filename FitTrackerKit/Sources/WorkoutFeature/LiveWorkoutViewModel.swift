@@ -17,6 +17,7 @@ public final class LiveWorkoutViewModel {
     }
 
     static let saveFailedMessage = "Your workout couldn't be saved. Try again."
+    static let noSignalMessage = "No heart-rate signal. Check that Bluetooth is on and your monitor is on and nearby."
     static let signalLostNotice = "The heart-rate signal was lost, so the workout was saved early."
 
     public private(set) var phase: Phase = .idle
@@ -71,6 +72,11 @@ public final class LiveWorkoutViewModel {
             } catch {
                 // A cancelled task ends the loop normally; any thrown error means the source failed.
                 guard phase == .recording else { return }
+                // Nothing was recorded (Bluetooth off, no monitor found): don't save an empty workout.
+                guard !samples.isEmpty else {
+                    phase = .failed(message: Self.noSignalMessage)
+                    return
+                }
                 notice = Self.signalLostNotice
                 await finishAndSave()
             }
@@ -87,7 +93,13 @@ public final class LiveWorkoutViewModel {
 
     /// Tries the last failed save again.
     public func retrySave() async {
-        guard case .failed = phase, let unsavedWorkout else { return }
+        guard case .failed = phase else { return }
+        guard let unsavedWorkout else {
+            // The failure was "no heart-rate signal", so there's nothing to save: start over.
+            reset()
+            start()
+            return
+        }
         await save(unsavedWorkout)
     }
 
