@@ -37,7 +37,8 @@ public final class LiveWorkoutViewModel {
 
     private let source: any HeartRateSource
     private let repository: any WorkoutRepository
-    private let calculator: HeartRateZoneCalculator
+    /// The user's zones. The app updates it when settings change; it applies to the next load or reading.
+    public var calculator: HeartRateZoneCalculator
     private let now: @Sendable () -> Date
 
     public init(

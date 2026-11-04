@@ -4,6 +4,7 @@ import Domain
 import Repositories
 import Sensors
 import HistoryFeature
+import SettingsFeature
 import WorkoutFeature
 
 /// The composition root: the only place in the app that creates concrete implementations
@@ -13,21 +14,25 @@ import WorkoutFeature
 final class AppContainer {
     let workoutRepository: any WorkoutRepository
     let heartRateSource: any HeartRateSource
-    let zoneCalculator: HeartRateZoneCalculator
+    /// Shared by the Settings screen and every feature that needs the user's zones.
+    let settingsViewModel: SettingsViewModel
+
+    /// The user's current zones, from their settings.
+    var zoneCalculator: HeartRateZoneCalculator { settingsViewModel.settings.calculator }
 
     init(
         workoutRepository: any WorkoutRepository,
         heartRateSource: any HeartRateSource,
-        zoneCalculator: HeartRateZoneCalculator
+        settingsStore: any SettingsStore
     ) {
         self.workoutRepository = workoutRepository
         self.heartRateSource = heartRateSource
-        self.zoneCalculator = zoneCalculator
+        self.settingsViewModel = SettingsViewModel(store: settingsStore)
     }
 
     // MARK: - Configurations
 
-    /// The real app: workouts saved to disk with Core Data.
+    /// The real app: workouts saved to disk with Core Data, settings in UserDefaults.
     /// Heart rate comes from a Bluetooth monitor on a real device. The simulator has no
     /// Bluetooth, so it uses the simulated source.
     static func live() -> AppContainer {
@@ -39,16 +44,17 @@ final class AppContainer {
         return AppContainer(
             workoutRepository: makeDiskRepository(),
             heartRateSource: source,
-            zoneCalculator: defaultZoneCalculator()
+            settingsStore: UserDefaultsSettingsStore()
         )
     }
 
-    /// Previews and tests: a real Core Data store that only lives in memory.
+    /// Previews and tests: a real Core Data store that only lives in memory, and settings that
+    /// are saved in a throwaway defaults domain so previews never change the real ones.
     static func inMemory() throws -> AppContainer {
         AppContainer(
             workoutRepository: try CoreDataWorkoutRepository.inMemory(),
             heartRateSource: SimulatedHeartRateSource(),
-            zoneCalculator: defaultZoneCalculator()
+            settingsStore: UserDefaultsSettingsStore(defaults: UserDefaults(suiteName: "FitTracker.preview") ?? .standard)
         )
     }
 
@@ -81,16 +87,6 @@ final class AppContainer {
                 // itself is broken, and there is nothing useful the app can do.
                 fatalError("Couldn't create an in-memory workout store: \(error)")
             }
-        }
-    }
-
-    /// Until Settings exists, zones use the Fox formula for a 30-year-old (max 190 BPM).
-    private static func defaultZoneCalculator() -> HeartRateZoneCalculator {
-        do {
-            return try HeartRateZoneCalculator(age: 30)
-        } catch {
-            // 30 is inside the valid range, so this can only fail if Domain's rules change.
-            preconditionFailure("The default age must be valid: \(error)")
         }
     }
 }

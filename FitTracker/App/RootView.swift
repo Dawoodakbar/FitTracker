@@ -1,6 +1,7 @@
 import SwiftUI
 import Domain
 import HistoryFeature
+import SettingsFeature
 import WorkoutFeature
 
 /// The app's top level: one tab per feature.
@@ -9,7 +10,7 @@ import WorkoutFeature
 struct RootView: View {
     /// The tabs, as values, so the selected tab can be stored and reacted to.
     enum AppTab: Hashable {
-        case workout, history, zones
+        case workout, history, zones, settings
     }
 
     let container: AppContainer
@@ -53,12 +54,23 @@ struct RootView: View {
             Tab("Zones", systemImage: "heart.circle", value: AppTab.zones) {
                 ContentView()
             }
+
+            Tab("Settings", systemImage: "gearshape", value: AppTab.settings) {
+                NavigationStack {
+                    SettingsView(viewModel: container.settingsViewModel)
+                }
+            }
         }
         // A workout recorded on the Workout tab should be in the list as soon as History opens.
         .onChange(of: selectedTab) { _, newTab in
             if newTab == .history {
                 Task { await historyViewModel.load() }
             }
+        }
+        // When the user changes age or formula, every screen starts using the new zones.
+        .onChange(of: container.settingsViewModel.settings) { _, settings in
+            historyViewModel.calculator = settings.calculator
+            liveWorkoutViewModel.calculator = settings.calculator
         }
         // Keep the screen on while recording, so the live heart rate stays visible.
         .onChange(of: liveWorkoutViewModel.phase) { _, phase in

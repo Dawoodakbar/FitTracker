@@ -26,7 +26,8 @@ public final class WorkoutHistoryViewModel {
     public var deleteError: String?
 
     private let repository: any WorkoutRepository
-    private let calculator: HeartRateZoneCalculator
+    /// The user's zones. The app updates it when settings change; it applies to the next load or reading.
+    public var calculator: HeartRateZoneCalculator
 
     /// - Parameters:
     ///   - repository: Where workouts come from. The app passes the real one; tests a fake.
