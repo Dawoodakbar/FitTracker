@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AF4DF5BD309A65B400CEB3F0 /* WorkoutFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AF4DF5BC309A65B400CEB3F0 /* WorkoutFeature */; };
 		AF4DF5BF309A65BC00CEB3F0 /* Sensors in Frameworks */ = {isa = PBXBuildFile; productRef = AF4DF5BE309A65BC00CEB3F0 /* Sensors */; };
+		AF4DF5C1309B659700CEB3F0 /* SettingsFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AF4DF5C0309B659700CEB3F0 /* SettingsFeature */; };
 		AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4F9F3092861600CDAFE1 /* Domain */; };
 		AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FA13092913700CDAFE1 /* DesignSystem */; };
 		AFBD4FFD309A5B3100CDAFE1 /* HistoryFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FFC309A5B3100CDAFE1 /* HistoryFeature */; };
@@ -53,6 +54,7 @@
 				AF4DF5BD309A65B400CEB3F0 /* WorkoutFeature in Frameworks */,
 				AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */,
 				AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */,
+				AF4DF5C1309B659700CEB3F0 /* SettingsFeature in Frameworks */,
 				AFBD4FFD309A5B3100CDAFE1 /* HistoryFeature in Frameworks */,
 			);
 		};
@@ -115,6 +117,7 @@
 				AFBD4FFE309A5B3C00CDAFE1 /* Repositories */,
 				AF4DF5BC309A65B400CEB3F0 /* WorkoutFeature */,
 				AF4DF5BE309A65BC00CEB3F0 /* Sensors */,
+				AF4DF5C0309B659700CEB3F0 /* SettingsFeature */,
 			);
 			productName = MyApp;
 			productReference = 000000000000000000000120 /* FitTracker.app */;
@@ -507,6 +510,10 @@
 		AF4DF5BE309A65BC00CEB3F0 /* Sensors */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Sensors;
+		};
+		AF4DF5C0309B659700CEB3F0 /* SettingsFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SettingsFeature;
 		};
 		AFBD4F9F3092861600CDAFE1 /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;
