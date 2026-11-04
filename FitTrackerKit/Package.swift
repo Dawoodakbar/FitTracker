@@ -19,6 +19,7 @@ let package = Package(
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
         .library(name: "HistoryFeature", targets: ["HistoryFeature"]),
         .library(name: "WorkoutFeature", targets: ["WorkoutFeature"]),
+        .library(name: "SettingsFeature", targets: ["SettingsFeature"]),
         .library(name: "Repositories", targets: ["Repositories"]),
         .library(name: "Sensors", targets: ["Sensors"])
     ],
@@ -39,6 +40,11 @@ let package = Package(
         ),
         .target(
             name: "WorkoutFeature",
+            dependencies: ["Domain", "DesignSystem", "ZonePresentation"],
+            swiftSettings: swiftSettings
+        ),
+        .target(
+            name: "SettingsFeature",
             dependencies: ["Domain", "DesignSystem", "ZonePresentation"],
             swiftSettings: swiftSettings
         ),
