@@ -1,16 +1,21 @@
 import SwiftUI
 import Domain
+import DesignSystem
 import HistoryFeature
 import SettingsFeature
 import WorkoutFeature
+import PlansFeature
+import SleepFeature
+import MedicationFeature
+import PrayerFeature
 
-/// The app's top level: one tab per feature.
+/// The app's top level: Today, then one tab per area of the user's day.
 ///
 /// On iOS 26 and later the system draws the tab bar in Liquid Glass automatically.
 struct RootView: View {
-    /// The tabs, as values, so the selected tab can be stored and reacted to.
+    /// The tabs, as values, so the selected tab can be stored and changed from the Today cards.
     enum AppTab: Hashable {
-        case workout, history, zones, settings
+        case today, train, sleep, medication, prayer
     }
 
     let container: AppContainer
@@ -25,46 +30,33 @@ struct RootView: View {
         self.container = container
         self.historyViewModel = container.makeHistoryViewModel()
         self.liveWorkoutViewModel = container.makeLiveWorkoutViewModel()
-        self.selectedTab = .workout
+        self.selectedTab = .today
     }
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tab("Workout", systemImage: "figure.run", value: AppTab.workout) {
+            Tab("Today", systemImage: "circle.circle", value: AppTab.today) {
                 NavigationStack {
-                    LiveWorkoutView(viewModel: liveWorkoutViewModel)
+                    TodayView(container: container, selectedTab: $selectedTab)
                 }
             }
 
-            Tab("History", systemImage: "list.bullet.rectangle", value: AppTab.history) {
+            Tab("Train", systemImage: "figure.strengthtraining.traditional", value: AppTab.train) {
                 NavigationStack {
-                    WorkoutHistoryView(viewModel: historyViewModel)
-                        #if DEBUG
-                        .toolbar {
-                            ToolbarItem {
-                                Button("Add Sample Workout", systemImage: "plus") {
-                                    Task { await addSampleWorkout() }
-                                }
-                            }
-                        }
-                        #endif
+                    PlanLibraryView(viewModel: container.plansViewModel) { trainingLinks }
                 }
             }
 
-            Tab("Zones", systemImage: "heart.circle", value: AppTab.zones) {
-                ContentView()
+            Tab("Sleep", systemImage: "bed.double", value: AppTab.sleep) {
+                NavigationStack { SleepView(viewModel: container.sleepViewModel) }
             }
 
-            Tab("Settings", systemImage: "gearshape", value: AppTab.settings) {
-                NavigationStack {
-                    SettingsView(viewModel: container.settingsViewModel)
-                }
+            Tab("Meds", systemImage: "pills", value: AppTab.medication) {
+                NavigationStack { MedicationView(viewModel: container.medicationViewModel) }
             }
-        }
-        // A workout recorded on the Workout tab should be in the list as soon as History opens.
-        .onChange(of: selectedTab) { _, newTab in
-            if newTab == .history {
-                Task { await historyViewModel.load() }
+
+            Tab("Prayer", systemImage: "moon.stars", value: AppTab.prayer) {
+                NavigationStack { PrayerView(viewModel: container.prayerViewModel) }
             }
         }
         // When the user changes age or formula, every screen starts using the new zones.
@@ -76,6 +68,43 @@ struct RootView: View {
         .onChange(of: liveWorkoutViewModel.phase) { _, phase in
             UIApplication.shared.isIdleTimerDisabled = phase == .recording
         }
+    }
+
+    /// The heart-rate tools, shown above the plan library on the Train tab.
+    private var trainingLinks: some View {
+        VStack(spacing: Spacing.s) {
+            NavigationLink {
+                LiveWorkoutView(viewModel: liveWorkoutViewModel)
+            } label: {
+                TrainingLink(title: "Free workout", subtitle: "Record live heart rate and zones", symbol: "heart.circle.fill", style: .move)
+            }
+            HStack(spacing: Spacing.s) {
+                NavigationLink {
+                    historyScreen
+                } label: {
+                    TrainingLink(title: "History", subtitle: nil, symbol: "list.bullet.rectangle.fill", style: .medication)
+                }
+                NavigationLink {
+                    ContentView(age: container.settingsViewModel.settings.age)
+                } label: {
+                    TrainingLink(title: "Zones", subtitle: nil, symbol: "heart.text.square.fill", style: .plan)
+                }
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var historyScreen: some View {
+        WorkoutHistoryView(viewModel: historyViewModel)
+            #if DEBUG
+            .toolbar {
+                ToolbarItem {
+                    Button("Add Sample Workout", systemImage: "plus") {
+                        Task { await addSampleWorkout() }
+                    }
+                }
+            }
+            #endif
     }
 
     #if DEBUG
@@ -90,6 +119,33 @@ struct RootView: View {
         await historyViewModel.load()
     }
     #endif
+}
+
+private struct TrainingLink: View {
+    let title: String
+    let subtitle: String?
+    let symbol: String
+    let style: RingStyle
+
+    var body: some View {
+        HStack(spacing: Spacing.m) {
+            Image(systemName: symbol)
+                .font(.title2)
+                .foregroundStyle(.white)
+                .frame(width: 44, height: 44)
+                .background(style.gradient, in: .rect(cornerRadius: 12))
+            VStack(alignment: .leading) {
+                Text(title).font(.headline).lineLimit(1).minimumScaleFactor(0.8)
+                if let subtitle { Text(subtitle).font(.caption).foregroundStyle(.secondary) }
+            }
+            Spacer(minLength: 0)
+            // Half-width tiles have no subtitle and no room for a chevron.
+            if subtitle != nil {
+                Image(systemName: "chevron.right").foregroundStyle(.tertiary)
+            }
+        }
+        .card()
+    }
 }
 
 #Preview {

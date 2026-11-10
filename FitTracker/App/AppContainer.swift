@@ -6,6 +6,10 @@ import Sensors
 import HistoryFeature
 import SettingsFeature
 import WorkoutFeature
+import PlansFeature
+import SleepFeature
+import MedicationFeature
+import PrayerFeature
 
 /// The composition root: the only place in the app that creates concrete implementations
 /// and hands them to features. Features only ever see Domain protocols.
@@ -17,17 +21,56 @@ final class AppContainer {
     /// Shared by the Settings screen and every feature that needs the user's zones.
     let settingsViewModel: SettingsViewModel
 
+    // The wellness features. Each is shared by its own tab and the Today dashboard.
+    let plansViewModel: PlansViewModel
+    let sleepViewModel: SleepViewModel
+    let medicationViewModel: MedicationViewModel
+    let prayerViewModel: PrayerViewModel
+
     /// The user's current zones, from their settings.
     var zoneCalculator: HeartRateZoneCalculator { settingsViewModel.settings.calculator }
 
     init(
         workoutRepository: any WorkoutRepository,
         heartRateSource: any HeartRateSource,
-        settingsStore: any SettingsStore
+        settingsStore: any SettingsStore,
+        wellness: WellnessStores,
+        reminders: any MedicationReminders
     ) {
         self.workoutRepository = workoutRepository
         self.heartRateSource = heartRateSource
         self.settingsViewModel = SettingsViewModel(store: settingsStore)
+        self.plansViewModel = PlansViewModel(store: wellness.plans)
+        self.sleepViewModel = SleepViewModel(store: wellness.sleep)
+        self.medicationViewModel = MedicationViewModel(store: wellness.medication, reminders: reminders)
+        self.prayerViewModel = PrayerViewModel(store: wellness.prayer)
+    }
+
+    /// Where each wellness feature saves its data.
+    struct WellnessStores {
+        let plans: any SnapshotStore<PlanProgress>
+        let sleep: any SnapshotStore<SleepJournal>
+        let medication: any SnapshotStore<MedicationBook>
+        let prayer: any SnapshotStore<PrayerJournal>
+
+        /// JSON files in Application Support, encrypted while the phone is locked.
+        static let onDisk = WellnessStores(
+            plans: JSONFileSnapshotStore(name: "plan-progress"),
+            sleep: JSONFileSnapshotStore(name: "sleep-journal"),
+            medication: JSONFileSnapshotStore(name: "medications"),
+            prayer: JSONFileSnapshotStore(name: "prayer-journal")
+        )
+
+        /// Files in a fresh temporary folder, so previews start empty and never touch real data.
+        static func temporary() -> WellnessStores {
+            let folder = FileManager.default.temporaryDirectory.appending(path: "FitTrackerPreview-\(UUID().uuidString)")
+            return WellnessStores(
+                plans: JSONFileSnapshotStore(fileURL: folder.appending(path: "plans.json")),
+                sleep: JSONFileSnapshotStore(fileURL: folder.appending(path: "sleep.json")),
+                medication: JSONFileSnapshotStore(fileURL: folder.appending(path: "medication.json")),
+                prayer: JSONFileSnapshotStore(fileURL: folder.appending(path: "prayer.json"))
+            )
+        }
     }
 
     // MARK: - Configurations
@@ -44,7 +87,9 @@ final class AppContainer {
         return AppContainer(
             workoutRepository: makeDiskRepository(),
             heartRateSource: source,
-            settingsStore: UserDefaultsSettingsStore()
+            settingsStore: UserDefaultsSettingsStore(),
+            wellness: .onDisk,
+            reminders: LocalNotificationMedicationReminders()
         )
     }
 
@@ -54,7 +99,9 @@ final class AppContainer {
         AppContainer(
             workoutRepository: try CoreDataWorkoutRepository.inMemory(),
             heartRateSource: SimulatedHeartRateSource(),
-            settingsStore: UserDefaultsSettingsStore(defaults: UserDefaults(suiteName: "FitTracker.preview") ?? .standard)
+            settingsStore: UserDefaultsSettingsStore(defaults: UserDefaults(suiteName: "FitTracker.preview") ?? .standard),
+            wellness: .temporary(),
+            reminders: NoMedicationReminders()
         )
     }
 

@@ -20,6 +20,10 @@ let package = Package(
         .library(name: "HistoryFeature", targets: ["HistoryFeature"]),
         .library(name: "WorkoutFeature", targets: ["WorkoutFeature"]),
         .library(name: "SettingsFeature", targets: ["SettingsFeature"]),
+        .library(name: "PlansFeature", targets: ["PlansFeature"]),
+        .library(name: "SleepFeature", targets: ["SleepFeature"]),
+        .library(name: "MedicationFeature", targets: ["MedicationFeature"]),
+        .library(name: "PrayerFeature", targets: ["PrayerFeature"]),
         .library(name: "Repositories", targets: ["Repositories"]),
         .library(name: "Sensors", targets: ["Sensors"])
     ],
@@ -48,6 +52,11 @@ let package = Package(
             dependencies: ["Domain", "DesignSystem", "ZonePresentation"],
             swiftSettings: swiftSettings
         ),
+        // Wellness features: each keeps one Domain value and saves it through `SnapshotStore`.
+        .target(name: "PlansFeature", dependencies: ["Domain", "DesignSystem"], swiftSettings: swiftSettings),
+        .target(name: "SleepFeature", dependencies: ["Domain", "DesignSystem"], swiftSettings: swiftSettings),
+        .target(name: "MedicationFeature", dependencies: ["Domain", "DesignSystem"], swiftSettings: swiftSettings),
+        .target(name: "PrayerFeature", dependencies: ["Domain", "DesignSystem"], swiftSettings: swiftSettings),
         // Infrastructure: the Core Data stack. Knows nothing about Domain.
         .target(name: "Persistence", swiftSettings: swiftSettings),
         // Implements Domain's repository protocols on top of infrastructure, mapping between them.
@@ -88,6 +97,11 @@ let package = Package(
         .testTarget(
             name: "HistoryFeatureTests",
             dependencies: ["HistoryFeature", "Domain", "TestSupport"],
+            swiftSettings: swiftSettings
+        ),
+        .testTarget(
+            name: "WellnessFeatureTests",
+            dependencies: ["PlansFeature", "SleepFeature", "MedicationFeature", "PrayerFeature", "Domain", "TestSupport"],
             swiftSettings: swiftSettings
         ),
         .testTarget(

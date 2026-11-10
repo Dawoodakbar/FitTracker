@@ -14,6 +14,10 @@
 		AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FA13092913700CDAFE1 /* DesignSystem */; };
 		AFBD4FFD309A5B3100CDAFE1 /* HistoryFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FFC309A5B3100CDAFE1 /* HistoryFeature */; };
 		AFBD4FFF309A5B3C00CDAFE1 /* Repositories in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FFE309A5B3C00CDAFE1 /* Repositories */; };
+		AFC0DE10309C000000CEB3F0 /* PlansFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFC0DE00309C000000CEB3F0 /* PlansFeature */; };
+		AFC0DE11309C000000CEB3F0 /* SleepFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFC0DE01309C000000CEB3F0 /* SleepFeature */; };
+		AFC0DE12309C000000CEB3F0 /* MedicationFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFC0DE02309C000000CEB3F0 /* MedicationFeature */; };
+		AFC0DE13309C000000CEB3F0 /* PrayerFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFC0DE03309C000000CEB3F0 /* PrayerFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,10 @@
 				AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */,
 				AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */,
 				AF4DF5C1309B659700CEB3F0 /* SettingsFeature in Frameworks */,
+				AFC0DE10309C000000CEB3F0 /* PlansFeature in Frameworks */,
+				AFC0DE11309C000000CEB3F0 /* SleepFeature in Frameworks */,
+				AFC0DE12309C000000CEB3F0 /* MedicationFeature in Frameworks */,
+				AFC0DE13309C000000CEB3F0 /* PrayerFeature in Frameworks */,
 				AFBD4FFD309A5B3100CDAFE1 /* HistoryFeature in Frameworks */,
 			);
 		};
@@ -118,6 +126,10 @@
 				AF4DF5BC309A65B400CEB3F0 /* WorkoutFeature */,
 				AF4DF5BE309A65BC00CEB3F0 /* Sensors */,
 				AF4DF5C0309B659700CEB3F0 /* SettingsFeature */,
+				AFC0DE00309C000000CEB3F0 /* PlansFeature */,
+				AFC0DE01309C000000CEB3F0 /* SleepFeature */,
+				AFC0DE02309C000000CEB3F0 /* MedicationFeature */,
+				AFC0DE03309C000000CEB3F0 /* PrayerFeature */,
 			);
 			productName = MyApp;
 			productReference = 000000000000000000000120 /* FitTracker.app */;
@@ -530,6 +542,22 @@
 		AFBD4FFE309A5B3C00CDAFE1 /* Repositories */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Repositories;
+		};
+		AFC0DE00309C000000CEB3F0 /* PlansFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PlansFeature;
+		};
+		AFC0DE01309C000000CEB3F0 /* SleepFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SleepFeature;
+		};
+		AFC0DE02309C000000CEB3F0 /* MedicationFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MedicationFeature;
+		};
+		AFC0DE03309C000000CEB3F0 /* PrayerFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PrayerFeature;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
