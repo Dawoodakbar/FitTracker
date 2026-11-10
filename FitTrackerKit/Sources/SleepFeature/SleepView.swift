@@ -22,6 +22,7 @@ public struct SleepView: View {
             }
             .padding(Spacing.m)
         }
+        .calmBackground(.sleep)
         .navigationTitle("Sleep")
         .toolbar {
             Button("Log Sleep", systemImage: "plus") { isLogging = true }
@@ -55,7 +56,10 @@ public struct SleepView: View {
                         QualityStars(quality: night.quality)
                     } else {
                         Text("Not logged").font(.title3.bold())
-                        Button("Log last night") { isLogging = true }.buttonStyle(.borderedProminent).tint(RingStyle.sleep.start)
+                        Button("Log last night") { isLogging = true }
+                            .buttonStyle(.borderedProminent)
+                            .tint(RingStyle.sleep.end)
+                            .foregroundStyle(Palette.night)
                     }
                 }
             }
@@ -208,6 +212,7 @@ private struct LogSleepSheet: View {
                     .pickerStyle(.segmented)
                 }
             }
+            .calmBackground(.sleep)
             .navigationTitle("Log Sleep")
             .inlineNavigationTitle()
             .toolbar {

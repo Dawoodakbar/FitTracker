@@ -9,13 +9,14 @@ import SleepFeature
 import MedicationFeature
 import PrayerFeature
 
-/// The app's top level: Today, then one tab per area of the user's day.
+/// The app's top level, organised like a calm wellness app: Home suggests what to do,
+/// and each other tab is one part of the day.
 ///
 /// On iOS 26 and later the system draws the tab bar in Liquid Glass automatically.
 struct RootView: View {
-    /// The tabs, as values, so the selected tab can be stored and changed from the Today cards.
+    /// The tabs, as values, so Home's cards can switch tabs.
     enum AppTab: Hashable {
-        case today, train, sleep, medication, prayer
+        case home, train, sleep, rituals, profile
     }
 
     let container: AppContainer
@@ -25,40 +26,47 @@ struct RootView: View {
     @State private var historyViewModel: WorkoutHistoryViewModel
     @State private var liveWorkoutViewModel: LiveWorkoutViewModel
     @State private var selectedTab: AppTab
+    @State private var ritual: RitualsView.Ritual
 
     init(container: AppContainer) {
         self.container = container
         self.historyViewModel = container.makeHistoryViewModel()
         self.liveWorkoutViewModel = container.makeLiveWorkoutViewModel()
-        self.selectedTab = .today
+        self.selectedTab = .home
+        self.ritual = .medication
     }
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tab("Today", systemImage: "circle.circle", value: AppTab.today) {
+            Tab("Home", systemImage: "sparkles", value: AppTab.home) {
                 NavigationStack {
-                    TodayView(container: container, selectedTab: $selectedTab)
+                    HomeView(container: container, selectedTab: $selectedTab)
                 }
             }
 
-            Tab("Train", systemImage: "figure.strengthtraining.traditional", value: AppTab.train) {
+            Tab("Train", systemImage: "figure.mind.and.body", value: AppTab.train) {
                 NavigationStack {
                     PlanLibraryView(viewModel: container.plansViewModel) { trainingLinks }
                 }
             }
 
-            Tab("Sleep", systemImage: "bed.double", value: AppTab.sleep) {
+            Tab("Sleep", systemImage: "moon.zzz", value: AppTab.sleep) {
                 NavigationStack { SleepView(viewModel: container.sleepViewModel) }
             }
 
-            Tab("Meds", systemImage: "pills", value: AppTab.medication) {
-                NavigationStack { MedicationView(viewModel: container.medicationViewModel) }
+            Tab("Rituals", systemImage: "leaf", value: AppTab.rituals) {
+                NavigationStack { RitualsView(container: container, ritual: $ritual) }
             }
 
-            Tab("Prayer", systemImage: "moon.stars", value: AppTab.prayer) {
-                NavigationStack { PrayerView(viewModel: container.prayerViewModel) }
+            Tab("Profile", systemImage: "person.crop.circle", value: AppTab.profile) {
+                NavigationStack {
+                    ProfileView(container: container) { historyScreen }
+                }
             }
         }
+        .tint(Palette.lavender)
+        // The calm night look is the app's identity, so it stays dark regardless of the system setting.
+        .preferredColorScheme(.dark)
         // When the user changes age or formula, every screen starts using the new zones.
         .onChange(of: container.settingsViewModel.settings) { _, settings in
             historyViewModel.calculator = settings.calculator
@@ -70,26 +78,12 @@ struct RootView: View {
         }
     }
 
-    /// The heart-rate tools, shown above the plan library on the Train tab.
+    /// The live heart-rate workout, shown above the plan library on the Train tab.
     private var trainingLinks: some View {
-        VStack(spacing: Spacing.s) {
-            NavigationLink {
-                LiveWorkoutView(viewModel: liveWorkoutViewModel)
-            } label: {
-                TrainingLink(title: "Free workout", subtitle: "Record live heart rate and zones", symbol: "heart.circle.fill", style: .move)
-            }
-            HStack(spacing: Spacing.s) {
-                NavigationLink {
-                    historyScreen
-                } label: {
-                    TrainingLink(title: "History", subtitle: nil, symbol: "list.bullet.rectangle.fill", style: .medication)
-                }
-                NavigationLink {
-                    ContentView(age: container.settingsViewModel.settings.age)
-                } label: {
-                    TrainingLink(title: "Zones", subtitle: nil, symbol: "heart.text.square.fill", style: .plan)
-                }
-            }
+        NavigationLink {
+            LiveWorkoutView(viewModel: liveWorkoutViewModel)
+        } label: {
+            TrainingLink(title: "Free workout", subtitle: "Record live heart rate and zones", symbol: "heart.circle.fill", style: .move)
         }
         .buttonStyle(.plain)
     }
@@ -131,9 +125,9 @@ private struct TrainingLink: View {
         HStack(spacing: Spacing.m) {
             Image(systemName: symbol)
                 .font(.title2)
-                .foregroundStyle(.white)
+                .foregroundStyle(Palette.night)
                 .frame(width: 44, height: 44)
-                .background(style.gradient, in: .rect(cornerRadius: 12))
+                .background(style.gradient, in: .rect(cornerRadius: 14, style: .continuous))
             VStack(alignment: .leading) {
                 Text(title).font(.headline).lineLimit(1).minimumScaleFactor(0.8)
                 if let subtitle { Text(subtitle).font(.caption).foregroundStyle(.secondary) }

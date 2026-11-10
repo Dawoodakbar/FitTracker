@@ -19,6 +19,7 @@ public struct WorkoutHistoryView: View {
 
     public var body: some View {
         content
+            .calmBackground(.medication)
             .navigationTitle("History")
             // Runs when the view appears, and is cancelled automatically if it disappears.
             .task { await viewModel.load() }

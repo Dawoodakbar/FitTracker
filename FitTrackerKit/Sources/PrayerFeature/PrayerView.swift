@@ -26,6 +26,7 @@ public struct PrayerView: View {
             .padding(Spacing.m)
         }
         .overlay { if let celebration { ConfettiBurst(startDate: celebration) } }
+        .calmBackground(.prayer)
         .navigationTitle("Prayer")
         .task { await viewModel.load() }
         .alert("Something went wrong", isPresented: errorBinding) {
@@ -145,7 +146,7 @@ private struct PrayerButton: View {
                     .font(.title2)
                     .contentTransition(.symbolEffect(.replace))
             }
-            .foregroundStyle(status == nil ? AnyShapeStyle(.primary) : AnyShapeStyle(.white))
+            .foregroundStyle(status == nil ? AnyShapeStyle(Palette.textPrimary) : AnyShapeStyle(Palette.night))
             .padding(Spacing.m)
             .background {
                 RoundedRectangle(cornerRadius: 18)
@@ -171,7 +172,7 @@ private struct PrayerButton: View {
 
     private var fill: AnyShapeStyle {
         switch status {
-        case nil: AnyShapeStyle(.fill.tertiary)
+        case nil: AnyShapeStyle(Palette.surface)
         case .onTime: AnyShapeStyle(RingStyle.prayer.gradient)
         case .late: AnyShapeStyle(RingStyle.plan.gradient)
         }

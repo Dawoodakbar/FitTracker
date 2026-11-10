@@ -18,6 +18,7 @@ public struct LiveWorkoutView: View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(Spacing.m)
+            .calmBackground(.move)
             .navigationTitle("Workout")
             // Controls float above the content and never cover it, even at large text sizes.
             .safeAreaInset(edge: .bottom) {

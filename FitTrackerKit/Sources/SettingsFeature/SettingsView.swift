@@ -41,6 +41,7 @@ public struct SettingsView: View {
                 }
             }
         }
+        .calmBackground(.plan)
         .navigationTitle("Settings")
     }
 }

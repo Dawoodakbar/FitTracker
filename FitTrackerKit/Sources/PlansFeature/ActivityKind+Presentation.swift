@@ -69,3 +69,37 @@ extension Exercise {
         seconds >= 60 && seconds % 60 == 0 ? "\(seconds / 60) min" : "\(seconds) s"
     }
 }
+
+extension WorkoutPlan {
+    /// The artwork for this plan's cards. Evening plans get the night scene.
+    public var sceneKind: SceneArt.Kind {
+        if id == "sleep-yoga" { return .night }
+        return switch kind {
+        case .strength, .running: .hills
+        case .yoga, .mobility: .waves
+        case .hiit: .peaks
+        }
+    }
+
+    public var style: RingStyle { kind.style }
+    public var artSeed: Int { SceneArt.seed(for: id) }
+
+    /// "Beginner · 15 min"
+    public var cardSubtitle: String {
+        let minutes = sessions.first?.estimatedMinutes ?? 0
+        return "\(level.title) · \(minutes) min · \(equipment.title)"
+    }
+}
+
+extension ActivityKind {
+    /// Shown under each category row in the library.
+    var tagline: String {
+        switch self {
+        case .strength: "Build strength at home or in the gym"
+        case .yoga: "Flow, stretch and breathe"
+        case .hiit: "Short and intense"
+        case .running: "From walking to your first 5K"
+        case .mobility: "Loosen up in a few minutes"
+        }
+    }
+}

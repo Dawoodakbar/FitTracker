@@ -20,7 +20,9 @@ public actor JSONFileSnapshotStore<Value: Codable & Sendable>: SnapshotStore {
     }
 
     public func load() throws -> Value? {
-        guard FileManager.default.fileExists(atPath: fileURL.path()) else { return nil }
+        // `path(percentEncoded: false)`: the default `path()` turns the space in
+        // "Application Support" into "%20", and then the file is never found.
+        guard FileManager.default.fileExists(atPath: fileURL.path(percentEncoded: false)) else { return nil }
         return try JSONDecoder().decode(Value.self, from: Data(contentsOf: fileURL))
     }
 

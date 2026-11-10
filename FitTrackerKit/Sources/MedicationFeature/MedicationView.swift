@@ -27,6 +27,7 @@ public struct MedicationView: View {
             }
             .padding(Spacing.m)
         }
+        .calmBackground(.medication)
         .navigationTitle("Medication")
         .toolbar {
             Button("Add Medication", systemImage: "plus") { isAdding = true }
@@ -239,6 +240,7 @@ private struct MedicationEditor: View {
                     }
                 }
             }
+            .calmBackground(.medication)
             .navigationTitle(original == nil ? "New Medication" : "Edit Medication")
             .inlineNavigationTitle()
             .toolbar {

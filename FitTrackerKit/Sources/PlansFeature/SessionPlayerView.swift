@@ -42,6 +42,7 @@ struct SessionPlayerView: View {
                 controls
             }
             .padding(Spacing.m)
+            .calmBackground(isRest ? .sleep : plan.style)
             .animation(.spring(duration: 0.5, bounce: 0.15), value: stepID)
             .overlay { if let confettiStart { ConfettiBurst(startDate: confettiStart) } }
             .navigationTitle(player.session.title)
@@ -154,7 +155,8 @@ struct SessionPlayerView: View {
                 }
                 Button(isRest ? "Skip Rest" : "Done", systemImage: "forward.fill", action: advance)
                     .buttonStyle(.glassProminent)
-                    .tint(plan.kind.style.start)
+                    .tint(plan.kind.style.end)
+                    .foregroundStyle(Palette.night)
             }
         }
         .controlSize(.extraLarge)
