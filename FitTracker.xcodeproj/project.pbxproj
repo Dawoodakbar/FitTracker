@@ -6,8 +6,34 @@
 	objectVersion = 90;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AF4DF5BD309A65B400CEB3F0 /* WorkoutFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AF4DF5BC309A65B400CEB3F0 /* WorkoutFeature */; };
+		AF4DF5BF309A65BC00CEB3F0 /* Sensors in Frameworks */ = {isa = PBXBuildFile; productRef = AF4DF5BE309A65BC00CEB3F0 /* Sensors */; };
+		AF4DF5C1309B659700CEB3F0 /* SettingsFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AF4DF5C0309B659700CEB3F0 /* SettingsFeature */; };
+		AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4F9F3092861600CDAFE1 /* Domain */; };
+		AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FA13092913700CDAFE1 /* DesignSystem */; };
+		AFBD4FFD309A5B3100CDAFE1 /* HistoryFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FFC309A5B3100CDAFE1 /* HistoryFeature */; };
+		AFBD4FFF309A5B3C00CDAFE1 /* Repositories in Frameworks */ = {isa = PBXBuildFile; productRef = AFBD4FFE309A5B3C00CDAFE1 /* Repositories */; };
+		AFC0DE10309C000000CEB3F0 /* PlansFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFC0DE00309C000000CEB3F0 /* PlansFeature */; };
+		AFC0DE11309C000000CEB3F0 /* SleepFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFC0DE01309C000000CEB3F0 /* SleepFeature */; };
+		AFC0DE12309C000000CEB3F0 /* MedicationFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFC0DE02309C000000CEB3F0 /* MedicationFeature */; };
+		AFC0DE13309C000000CEB3F0 /* PrayerFeature in Frameworks */ = {isa = PBXBuildFile; productRef = AFC0DE03309C000000CEB3F0 /* PrayerFeature */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AFBD4FAB30961D0400CDAFE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000100000000;
+			remoteInfo = FitTracker;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* FitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFBD4F9C3092805B00CDAFE1 /* FitTrackerKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FitTrackerKit; sourceTree = "<group>"; };
+		AFBD4FA730961D0400CDAFE1 /* FitTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +42,31 @@
 			path = FitTracker;
 			sourceTree = "<group>";
 		};
+		AFBD4FA830961D0400CDAFE1 /* FitTrackerTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FitTrackerTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		000000000000000130000000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				AF4DF5BF309A65BC00CEB3F0 /* Sensors in Frameworks */,
+				AFBD4FFF309A5B3C00CDAFE1 /* Repositories in Frameworks */,
+				AF4DF5BD309A65B400CEB3F0 /* WorkoutFeature in Frameworks */,
+				AFBD4FA03092861600CDAFE1 /* Domain in Frameworks */,
+				AFBD4FA23092913700CDAFE1 /* DesignSystem in Frameworks */,
+				AF4DF5C1309B659700CEB3F0 /* SettingsFeature in Frameworks */,
+				AFC0DE10309C000000CEB3F0 /* PlansFeature in Frameworks */,
+				AFC0DE11309C000000CEB3F0 /* SleepFeature in Frameworks */,
+				AFC0DE12309C000000CEB3F0 /* MedicationFeature in Frameworks */,
+				AFC0DE13309C000000CEB3F0 /* PrayerFeature in Frameworks */,
+				AFBD4FFD309A5B3100CDAFE1 /* HistoryFeature in Frameworks */,
+			);
+		};
+		AFBD4FA430961D0400CDAFE1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
 			);
@@ -31,6 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000010 /* FitTracker */,
+				AFBD4FA830961D0400CDAFE1 /* FitTrackerTests */,
+				AFBD4F9B3092805B00CDAFE1 /* Frameworks */,
 				000000000000000000000020 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -39,8 +88,17 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000120 /* FitTracker.app */,
+				AFBD4FA730961D0400CDAFE1 /* FitTrackerTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AFBD4F9B3092805B00CDAFE1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AFBD4F9C3092805B00CDAFE1 /* FitTrackerKit */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -60,9 +118,43 @@
 				000000000000000000000010 /* FitTracker */,
 			);
 			name = FitTracker;
+			packageProductDependencies = (
+				AFBD4F9F3092861600CDAFE1 /* Domain */,
+				AFBD4FA13092913700CDAFE1 /* DesignSystem */,
+				AFBD4FFC309A5B3100CDAFE1 /* HistoryFeature */,
+				AFBD4FFE309A5B3C00CDAFE1 /* Repositories */,
+				AF4DF5BC309A65B400CEB3F0 /* WorkoutFeature */,
+				AF4DF5BE309A65BC00CEB3F0 /* Sensors */,
+				AF4DF5C0309B659700CEB3F0 /* SettingsFeature */,
+				AFC0DE00309C000000CEB3F0 /* PlansFeature */,
+				AFC0DE01309C000000CEB3F0 /* SleepFeature */,
+				AFC0DE02309C000000CEB3F0 /* MedicationFeature */,
+				AFC0DE03309C000000CEB3F0 /* PrayerFeature */,
+			);
 			productName = MyApp;
 			productReference = 000000000000000000000120 /* FitTracker.app */;
 			productType = "com.apple.product-type.application";
+		};
+		AFBD4FA630961D0400CDAFE1 /* FitTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFBD4FAD30961D0400CDAFE1 /* Build configuration list for PBXNativeTarget "FitTrackerTests" */;
+			buildPhases = (
+				AFBD4FA330961D0400CDAFE1 /* Sources */,
+				AFBD4FA430961D0400CDAFE1 /* Frameworks */,
+				AFBD4FA530961D0400CDAFE1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AFBD4FAC30961D0400CDAFE1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AFBD4FA830961D0400CDAFE1 /* FitTrackerTests */,
+			);
+			name = FitTrackerTests;
+			productName = FitTrackerTests;
+			productReference = AFBD4FA730961D0400CDAFE1 /* FitTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -71,11 +163,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2630;
-				LastUpgradeCheck = 2700;
+				LastSwiftUpdateCheck = 2710;
+				LastUpgradeCheck = 2710;
 				TargetAttributes = {
 					000000000000000100000000 = {
 						CreatedOnToolsVersion = 26.3;
+					};
+					AFBD4FA630961D0400CDAFE1 = {
+						CreatedOnToolsVersion = 27.1;
+						TestTargetID = 000000000000000100000000;
 					};
 				};
 			};
@@ -94,12 +190,18 @@
 			projectRoot = "";
 			targets = (
 				000000000000000100000000 /* FitTracker */,
+				AFBD4FA630961D0400CDAFE1 /* FitTrackerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		000000000000000140000000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		AFBD4FA530961D0400CDAFE1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -112,7 +214,20 @@
 			files = (
 			);
 		};
+		AFBD4FA330961D0400CDAFE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AFBD4FAC30961D0400CDAFE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000100000000 /* FitTracker */;
+			targetProxy = AFBD4FAB30961D0400CDAFE1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		000000000000000011000000 /* Debug configuration for PBXProject "FitTracker" */ = {
@@ -151,6 +266,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 67LX5VUZH5;
 				DRIVERKIT_DEPLOYMENT_TARGET = 27.0;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -221,6 +337,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 67LX5VUZH5;
 				DRIVERKIT_DEPLOYMENT_TARGET = 27.0;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -256,6 +373,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "FitTracker connects to your heart-rate monitor to show your heart-rate zones during workouts.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -269,18 +387,19 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.$(PROJECT_UNIQUE_VALUE:identifier).$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dawoodakbar.FitTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -293,6 +412,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "FitTracker connects to your heart-rate monitor to show your heart-rate zones during workouts.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -306,18 +426,62 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.$(PROJECT_UNIQUE_VALUE:identifier).$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dawoodakbar.FitTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AFBD4FAE30961D0400CDAFE1 /* Debug configuration for PBXNativeTarget "FitTrackerTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dawoodakbar.FitTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FitTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FitTracker";
+			};
+			name = Debug;
+		};
+		AFBD4FAF30961D0400CDAFE1 /* Release configuration for PBXNativeTarget "FitTrackerTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dawoodakbar.FitTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FitTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FitTracker";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -340,7 +504,62 @@
 			);
 			defaultConfigurationName = Release;
 		};
+		AFBD4FAD30961D0400CDAFE1 /* Build configuration list for PBXNativeTarget "FitTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFBD4FAE30961D0400CDAFE1 /* Debug configuration for PBXNativeTarget "FitTrackerTests" */,
+				AFBD4FAF30961D0400CDAFE1 /* Release configuration for PBXNativeTarget "FitTrackerTests" */,
+			);
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AF4DF5BC309A65B400CEB3F0 /* WorkoutFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WorkoutFeature;
+		};
+		AF4DF5BE309A65BC00CEB3F0 /* Sensors */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Sensors;
+		};
+		AF4DF5C0309B659700CEB3F0 /* SettingsFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SettingsFeature;
+		};
+		AFBD4F9F3092861600CDAFE1 /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
+		AFBD4FA13092913700CDAFE1 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
+		AFBD4FFC309A5B3100CDAFE1 /* HistoryFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HistoryFeature;
+		};
+		AFBD4FFE309A5B3C00CDAFE1 /* Repositories */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Repositories;
+		};
+		AFC0DE00309C000000CEB3F0 /* PlansFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PlansFeature;
+		};
+		AFC0DE01309C000000CEB3F0 /* SleepFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SleepFeature;
+		};
+		AFC0DE02309C000000CEB3F0 /* MedicationFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MedicationFeature;
+		};
+		AFC0DE03309C000000CEB3F0 /* PrayerFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PrayerFeature;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 000000000000000000000000 /* Project object */;
 }
