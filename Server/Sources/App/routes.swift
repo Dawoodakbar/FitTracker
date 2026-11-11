@@ -8,6 +8,9 @@ func routes(_ app: Application) throws {
     app.get("health") { _ in
         HealthDTO(status: "ok")
     }
+
+    try app.register(collection: AuthController())
+    try app.register(collection: WorkoutController())
 }
 
 // Lets a `HealthDTO` be returned directly from a route handler: Vapor encodes it as JSON.

@@ -1,0 +1,23 @@
+# Local development database. Start it with:  docker compose up -d db
+# The server reads these same values from its environment (see configure.swift).
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: fittracker
+      POSTGRES_PASSWORD: fittracker
+      POSTGRES_DB: fittracker
+    ports:
+      - "5432:5432"
+    volumes:
+      # A named volume keeps your data when the container is recreated.
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fittracker"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  db_data:
